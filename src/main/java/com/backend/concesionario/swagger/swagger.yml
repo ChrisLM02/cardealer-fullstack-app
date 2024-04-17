@@ -1,12 +1,239 @@
-openapi: '3.0.2'
+openapi: "3.0.2"
 info:
-  title: API Title
-  version: '1.0'
+  title: API Concesionario
+  version: "1.0.0"
+  contact:
+    name: Christian Carlos Leyton Martín
+    email: christian.leyton.external@eviden.com
 servers:
   - url: http://localhost:8080
 paths:
-  /test:
+  /cars:
     get:
+      summary: Obtener lista de coches
+      description: Retorna una lista de todos los coches disponibles en el concesionario.
       responses:
-        '200':
-          description: OK
+        "200":
+          description: Coches obtenidos correctamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Vehicle"
+
+    post:
+      summary: Agregar un nuevo coche
+      description: Añade un nuevo coche a la lista de coches disponibles.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Vehicle"
+      responses:
+        "201":
+          description: Coche agregado correctamente
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Vehicle"
+
+  /cars/{id}:
+    get:
+      summary: Obtener detalles de un coche
+      description: Retorna los detalles de un coche específico según su ID.
+      parameters:
+        - name: id
+          in: path
+          description: ID del coche
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Detalles del coche obtenidos correctamente
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Vehicle"
+
+    put:
+      summary: Actualizar detalles de un coche
+      description: Actualiza los detalles de un coche específico según su ID.
+      parameters:
+        - name: id
+          in: path
+          description: ID del coche
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Vehicle"
+      responses:
+        "200":
+          description: Detalles del coche actualizados correctamente
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Vehicle"
+
+    delete:
+      summary: Eliminar un coche
+      description: Elimina un coche específico según su ID.
+      parameters:
+        - name: id
+          in: path
+          description: ID del coche
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Coche eliminado correctamente
+
+  /clients:
+    get:
+      summary: Obtener lista de usuarios
+      description: Retorna una lista de todos los usuarios registrados en el concesionario.
+      responses:
+        "200":
+          description: Usuarios obtenidos correctamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
+
+    post:
+      summary: Agregar un nuevo usuario
+      description: Añade un nuevo usuario a la lista de usuarios registrados.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+      responses:
+        "201":
+          description: Usuario agregado correctamente
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+
+  /clients/{id}:
+    get:
+      summary: Obtener detalles de un usuario
+      description: Retorna los detalles de un usuario específico según su ID.
+      parameters:
+        - name: id
+          in: path
+          description: ID del usuario
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Detalles del usuario obtenidos correctamente
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+
+    put:
+      summary: Actualizar detalles de un usuario
+      description: Actualiza los detalles de un usuario específico según su ID.
+      parameters:
+        - name: id
+          in: path
+          description: ID del usuario
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+      responses:
+        "200":
+          description: Detalles del usuario actualizados correctamente
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+
+    delete:
+      summary: Eliminar un usuario
+      description: Elimina un usuario específico según su ID.
+      parameters:
+        - name: id
+          in: path
+          description: ID del usuario
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Usuario eliminado correctamente
+
+components:
+  schemas:
+    Vehicle:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID del vehiculo
+        matricula:
+          type: string
+          description: Matricula del coche
+        marca:
+          type: string
+          description: Marca del coche
+        modelo:
+          type: string
+          description: Modelo del coche
+        año:
+          type: integer
+          description: Año de fabricación del coche
+        vendido:
+          type: boolean
+          description: Indica si el vehiculo está vendido o no
+      required:
+        - id
+        - matricula
+        - marca
+        - modelo
+        - año
+        - vendido
+
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID del usuario
+        usuario:
+          type: string
+          description: Nombre de usuario en la plataforma
+          format: email
+        nombre:
+          type: string
+          description: Nombre del usuario
+        apellido:
+          type: string
+          description: Apellido del usuario
+        direccion:
+          type: string
+          description: Direccion postal del usuario
+        rol:
+          type: string
+          description: Rol asignado al usuario
