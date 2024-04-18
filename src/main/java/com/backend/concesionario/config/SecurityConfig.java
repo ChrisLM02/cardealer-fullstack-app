@@ -28,6 +28,8 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf
                         .disable())
                 .authorizeHttpRequests(authRequest -> authRequest
+                .requestMatchers(HttpMethod.GET).permitAll()
+                .requestMatchers(HttpMethod.POST).permitAll()
                         .requestMatchers("/public/**", "/auth/**").permitAll() // Permitimos acceso al main portal y a
                                                                                // la zona de autenticacion
                         .anyRequest().authenticated())

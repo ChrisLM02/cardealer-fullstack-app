@@ -1,5 +1,7 @@
 package com.backend.concesionario.auth;
 
+import com.backend.concesionario.entity.Role;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,6 +17,6 @@ public class RegisterRequest {
     String identificationNumber;
     String firstname;
     String lastname;
-    String role;
+    Role role;
     String address;
 }

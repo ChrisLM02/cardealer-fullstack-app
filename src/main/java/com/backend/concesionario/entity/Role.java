@@ -20,6 +20,6 @@ public class Role {
     @Column(name = "Role_Name", nullable = false)
     private String roleName;
 
-    @Column(name = "Role_Description", nullable = false)
+    @Column(name = "Role_Description", nullable = true)
     private String roleDescription;
 }

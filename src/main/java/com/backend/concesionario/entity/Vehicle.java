@@ -23,7 +23,7 @@ public class Vehicle {
     @Column(name = "Vehicle_ID")
     private Long vehicleId;
 
-    @Column(name = "License_Plate", nullable = false, unique = true)
+    @Column(name = "License_Plate", nullable = false)
     private String licensePlate;
 
     @Column(name = "Brand", nullable = false)

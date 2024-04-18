@@ -1,6 +1,7 @@
 package com.backend.concesionario.entity;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -61,9 +62,14 @@ public class User implements UserDetails{
     private String address;
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-      return List.of(new SimpleGrantedAuthority((role.getRoleName())));
+public Collection<? extends GrantedAuthority> getAuthorities() {
+    if (this.role != null) {
+        return Collections.singletonList(new SimpleGrantedAuthority(this.role.getRoleName()));
+    } else {
+        return Collections.emptyList();
     }
+}
+    
     @Override
     public boolean isAccountNonExpired() {
        return true;
